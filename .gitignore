@@ -1,0 +1,25 @@
+# Python caches and bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+
+# Test and tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local runtime workspace artifacts
+.rag/
+
+# Local env files
+.env
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
