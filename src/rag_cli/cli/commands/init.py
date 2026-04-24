@@ -6,8 +6,9 @@ from rag_cli.cli.output import emit
 from rag_cli.config import AppConfig, save_config
 
 
-def run(workspace: Path, fmt: str) -> None:
-    cfg = AppConfig(workspace=workspace.resolve())
+def run(workspace: Path | None, fmt: str) -> None:
+    from rag_cli.config import resolve_workspace
+    cfg = AppConfig(workspace=resolve_workspace(workspace))
     cfg.rag_dir.mkdir(parents=True, exist_ok=True)
     cfg.docs_dir.mkdir(parents=True, exist_ok=True)
     cfg.converted_dir.mkdir(parents=True, exist_ok=True)

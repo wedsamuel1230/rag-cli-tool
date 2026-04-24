@@ -8,7 +8,7 @@ from rag_cli.core.lightrag_engine import LightRAGEngine
 from rag_cli.preprocess.docling_pipeline import collect_files, to_markdown
 
 
-def run(workspace: Path, src: Path, ext: str, recursive: bool, fmt: str) -> None:
+def run(workspace: Path | None, src: Path, ext: str, recursive: bool, fmt: str) -> None:
     cfg = load_config(workspace)
     if not src.exists():
         fail("missing_source", "Source path does not exist.", str(src), fmt)

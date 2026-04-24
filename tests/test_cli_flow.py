@@ -65,3 +65,26 @@ def test_init_ingest_query_docs_json_flow(tmp_path: Path) -> None:
     assert "meta" in query_json
     assert query_json["meta"]["mode"] == "hybrid"
 
+
+def test_global_default_workspace(tmp_path: Path, monkeypatch) -> None:
+    # Simulate global install behavior: no --workspace -> uses ~/.rag-cli-tool
+    monkeypatch.setenv("HOME", str(tmp_path))
+    from typer.testing import CliRunner
+    runner = CliRunner()
+    # Run init without --workspace -> should create ~/.rag-cli-tool/.rag
+    result = runner.invoke(app, ["init", "--format", "json"])
+    assert result.exit_code == 0
+    global_workspace = tmp_path / ".rag-cli-tool"
+    assert (global_workspace / ".rag" / "config.json").exists()
+    # Ingest into that workspace
+    docs_dir = tmp_path / "docs"
+    docs_dir.mkdir()
+    (docs_dir / "test.md").write_text("# Test", encoding="utf-8")
+    result = runner.invoke(app, ["ingest", "--src", str(docs_dir), "--recursive", "--format", "json"])
+    assert result.exit_code == 0
+    # Docs should show 1 doc
+    result = runner.invoke(app, ["docs", "--format", "json"])
+    assert result.exit_code == 0
+    docs_json = json.loads(result.stdout)
+    assert docs_json["meta"]["count"] == 1
+

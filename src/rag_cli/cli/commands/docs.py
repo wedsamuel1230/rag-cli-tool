@@ -7,7 +7,7 @@ from rag_cli.config import load_config
 from rag_cli.core.lightrag_engine import LightRAGEngine
 
 
-def run(workspace: Path, fmt: str) -> None:
+def run(workspace: Path | None, fmt: str) -> None:
     cfg = load_config(workspace)
     if not cfg.index_file.exists():
         fail("missing_index", "Index does not exist. Run init and ingest first.", "", fmt)

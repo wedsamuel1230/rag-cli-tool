@@ -28,10 +28,35 @@ npx skills add wedsamuel1230/rag-cli-tool
 
 ```bash
 uv sync
-uv run rag-cli --help
-uv run rag-cli init --workspace .
-uv run rag-cli ingest --src ./docs --recursive --format json
-uv run rag-cli query --question "What is SPI timing?" --mode hybrid --format json
+uv run rag --help
+uv run rag init --workspace .
+uv run rag ingest --src ./docs --recursive --format json
+uv run rag query --question "What is SPI timing?" --mode hybrid --format json
+```
+
+### Install as a global `uv` tool
+
+From PyPI (recommended):
+
+```bash
+uv tool install rag-cli-tool[rag,doc]
+```
+
+This installs the `rag` command globally. By default, `rag` uses a user-level workspace at `~/.rag-cli-tool` so you can run it from any directory without `--workspace`. Pass `--workspace <path>` to override.
+
+Examples:
+
+```bash
+rag init
+rag ingest --src ./docs --recursive
+rag query --question "What is SPI timing?" --mode hybrid
+```
+
+To install from source:
+
+```bash
+cd /path/to/rag-cli-tool
+uv tool install .[rag,doc]
 ```
 
 ## Configuration
@@ -55,7 +80,7 @@ Backward compatibility: `OPENAI_API_KEY` is still accepted if `POE_API_KEY` is n
 [Environment]::SetEnvironmentVariable("EMBEDDING_MODEL", "", "Machine")
 ```
 
-Then restart your terminal so new environment values are available to `uv run rag-cli ...`.
+Then restart your terminal so new environment values are available to `rag ...`.
 
 ### Model notes
 
@@ -64,11 +89,7 @@ Then restart your terminal so new environment values are available to `uv run ra
 - Default LLM is `gemini-3.1-flash-lite` (you can replace it with any supported model).
 - `EMBEDDING_MODEL` is optional because some provider catalogs do not expose embedding models in the same list.
 
-The CLI stores local workspace data in `.rag/`:
-
-- `.rag/config.json`
-- `.rag/index.json`
-- `.rag/converted/`
+The CLI stores local workspace data in `.rag/` (or `~/.rag-cli-tool/.rag/` when using the global default).
 
 ## Skill definitions
 
@@ -77,7 +98,7 @@ Agent-facing tool descriptors are in `skills/`:
 - `skills/search_docs_cli.json`
 - `skills/index_files_cli.json`
 
-They use `uv run rag-cli ... --format json` command contracts.
+They use `uv run rag ... --format json` command contracts.
 
 ## Development
 
@@ -97,3 +118,7 @@ Thanks to the maintainers and contributors of these upstream projects that power
 
 Parts of this implementation were adapted from patterns and workflows in the three repositories above, plus OpenRouter integration guidance.
 This repository builds on their open work with appreciation.
+
+## Release Notes
+
+See [CHANGELOG.md](CHANGELOG.md) for detailed release notes.

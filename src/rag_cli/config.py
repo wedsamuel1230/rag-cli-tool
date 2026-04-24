@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 
 DEFAULT_CONFIG_NAME = "config.json"
+DEFAULT_USER_WORKSPACE_DIR = ".rag-cli-tool"
 
 
 class AppConfig(BaseModel):
@@ -35,9 +36,22 @@ class AppConfig(BaseModel):
         return self.rag_dir / "converted"
 
 
-def load_config(workspace: Path) -> AppConfig:
+def default_workspace() -> Path:
+    # Respect HOME env var for test compatibility (Path.home() may ignore it on Windows).
+    home = os.getenv("HOME")
+    if home:
+        return Path(home) / DEFAULT_USER_WORKSPACE_DIR
+    return Path.home() / DEFAULT_USER_WORKSPACE_DIR
+
+
+def resolve_workspace(workspace: Path | None) -> Path:
+    base = workspace if workspace is not None else default_workspace()
+    return base.resolve()
+
+
+def load_config(workspace: Path | None) -> AppConfig:
     load_dotenv()
-    workspace = workspace.resolve()
+    workspace = resolve_workspace(workspace)
     cfg_path = workspace / ".rag" / DEFAULT_CONFIG_NAME
     file_data: dict[str, Any] = {}
     if cfg_path.exists():

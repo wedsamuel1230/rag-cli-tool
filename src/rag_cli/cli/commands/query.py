@@ -7,7 +7,7 @@ from rag_cli.config import load_config
 from rag_cli.core.lightrag_engine import LightRAGEngine
 
 
-def run(workspace: Path, question: str, mode: str, top_k: int, fmt: str) -> None:
+def run(workspace: Path | None, question: str, mode: str, top_k: int, fmt: str) -> None:
     if not question.strip():
         fail("missing_question", "Question cannot be empty.", "", fmt)
 
