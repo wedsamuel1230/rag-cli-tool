@@ -2,6 +2,7 @@
 
 [![Python](https://img.shields.io/badge/python-3.11%2B-3776AB.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![Packaging](https://img.shields.io/badge/packaging-uv-4B8BBE.svg)](https://github.com/astral-sh/uv)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 Production-ready local document RAG CLI with a clean operator workflow for initialize, ingest, query, and index inspection.
 
@@ -94,4 +95,5 @@ Thanks to the maintainers and contributors of these upstream projects that power
 - [document-to-markdown](https://github.com/mozilla-ai/document-to-markdown) for practical Docling-based conversion workflows.
 - [OpenRouter](https://openrouter.ai/) for OpenAI-compatible model routing used by this tool.
 
+Parts of this implementation were adapted from patterns and workflows in the three repositories above, plus OpenRouter integration guidance.
 This repository builds on their open work with appreciation.

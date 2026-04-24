@@ -4,6 +4,10 @@ version = "0.1.0"
 description = "User-friendly document RAG CLI with LightRAG-style workflow"
 readme = "README.md"
 requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Samuel F." },
+]
 dependencies = [
   "typer>=0.12.3",
   "pydantic>=2.7.0",
