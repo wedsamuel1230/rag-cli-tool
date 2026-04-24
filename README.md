@@ -84,3 +84,14 @@ They use `uv run rag-cli ... --format json` command contracts.
 uv sync
 uv run pytest
 ```
+
+## Acknowledgments
+
+Thanks to the maintainers and contributors of these upstream projects that power this CLI:
+
+- [LightRAG](https://github.com/HKUDS/LightRAG) for the retrieval pipeline and query-mode ideas.
+- [Docling](https://github.com/docling-project/docling) for robust document conversion.
+- [document-to-markdown](https://github.com/mozilla-ai/document-to-markdown) for practical Docling-based conversion workflows.
+- [OpenRouter](https://openrouter.ai/) for OpenAI-compatible model routing used by this tool.
+
+This repository builds on their open work with appreciation.
